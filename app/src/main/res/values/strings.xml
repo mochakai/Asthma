@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Asthma</string>
+    <string name="title_home">Home</string>
+    <string name="title_setting">Setting</string>
+    <string name="title_analysis">Analysis</string>
+    <string name="nameT">姓名：</string>
+    <string name="nameH">請輸入姓名</string>
+    <string name="sexM">男</string>
+    <string name="sexF">女</string>
+    <string name="birthT">生日：</string>
+    <string name="birthE">YY / MM / DD</string>
+    <string name="heightT">身高：</string>
+    <string name="heightE">(cm)</string>
+    <string name="weightT">體重：</string>
+    <string name="weightE">(kg)</string>
+    <string name="editCheck">Save</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

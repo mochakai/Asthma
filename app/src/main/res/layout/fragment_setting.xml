@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mocha_background"
+    android:orientation="vertical"
+    android:gravity="end|right"
+    android:padding="6dp"
+    tools:context="layout.SettingFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/nameT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/nameT"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/nameE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:ems="10"
+            android:hint="@string/nameH"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
+
+        <RadioGroup
+            android:id="@+id/sexCheck"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:checkedButton="@+id/radioButton2"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:textAlignment="center">
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sexM" />
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sexF" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/birthT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/birthT"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/birthE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="#5fffffff"
+            android:text="@string/birthE"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/heightT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/heightT"
+            android:textSize="24sp" />
+        <EditText
+            android:id="@+id/heightE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="3"
+            android:hint="@string/heightE"
+            android:textAlignment="center"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/weightT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/weightT"
+            android:textSize="24sp" />
+        <EditText
+            android:id="@+id/weightE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="3"
+            android:hint="@string/weightE"
+            android:textAlignment="center"
+            android:inputType="number" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#3f0098cb"
+        android:elevation="0dp"
+        android:onClick="editSave"
+        android:text="@string/editCheck" />
+</LinearLayout>
