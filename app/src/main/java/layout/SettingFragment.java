@@ -3,6 +3,7 @@ package layout;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.user.asthma.MainActivity;
 import com.example.user.asthma.R;
 
 /**
@@ -22,34 +26,20 @@ import com.example.user.asthma.R;
  * create an instance of this fragment.
  */
 public class SettingFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public String name = "";
+    public int sex = 0;
+    public String birth = "";
+    public String height = "";
+    public String weight = "";
+    public boolean settingsComplete = false;
 
 
     public SettingFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettingFragment newInstance(String param1, String param2) {
+    public static SettingFragment newInstance() {
         SettingFragment fragment = new SettingFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,10 +47,6 @@ public class SettingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
     private int mYear, mMonth, mDay;
     private TextView datebutton;
@@ -73,7 +59,7 @@ public class SettingFragment extends Fragment {
         datebutton = (TextView) view.findViewById(R.id.birthE);
         thiscontext = container.getContext();
 
-        // Show a datepicker when the dateButton is clicked
+        // Show a datePicker when the dateButton is clicked
         datebutton.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -92,8 +78,32 @@ public class SettingFragment extends Fragment {
             }
 
         });
+
+        // Show default value
+        SharedPreferences sp = this.getActivity().getSharedPreferences(MainActivity.settingFile, 0);
+        name = sp.getString("name", name);
+        sex = sp.getInt("sex", sex);
+        birth = sp.getString("birth", birth);
+        height = sp.getString("height", height);
+        weight = sp.getString("weight", weight);
+
+        EditText nameE = (EditText) view.findViewById(R.id.nameE);
+        nameE.setText(name);
+        RadioGroup rg = (RadioGroup) view.findViewById(R.id.sexCheck);
+        rg.check(sex);
+        datebutton.setText(birth);
+        EditText heightE = (EditText) view.findViewById(R.id.heightE);
+        heightE.setText(height);
+        EditText weightE = (EditText) view.findViewById(R.id.weightE);
+        weightE.setText(weight);
+
         return view;
 
+    }
+
+    public boolean verifySettings(){
+        settingsComplete = name.equals("") && birth.equals("") && height.equals("") && weight.equals("");
+        return settingsComplete;
     }
 
 }

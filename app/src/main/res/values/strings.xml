@@ -8,7 +8,7 @@
     <string name="sexM">男</string>
     <string name="sexF">女</string>
     <string name="birthT">生日：</string>
-    <string name="birthE">YY / MM / DD</string>
+    <string name="birthE">YYYY / MM / DD</string>
     <string name="heightT">身高：</string>
     <string name="heightE">(cm)</string>
     <string name="weightT">體重：</string>

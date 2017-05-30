@@ -1,6 +1,7 @@
 package com.example.user.asthma;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import layout.HomeFragment;
@@ -18,13 +21,12 @@ import layout.SettingFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     private HomeFragment homepage;
     private NotiFragment notipage;
     private SettingFragment setpage;
     boolean logon = false;
-    boolean unsaved = false;
     public static final int FUNC_LOGIN = 1;
+    public static final String settingFile = "settings";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,15 +75,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, FUNC_LOGIN);
         }
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().getItem(1).setChecked(true);
 
         homepage = HomeFragment.newInstance("a", "b");
         notipage = NotiFragment.newInstance("a", "b");
-        setpage = SettingFragment.newInstance("a", "b");
-        if(!unsaved){
+        setpage = SettingFragment.newInstance();
+        if(!setpage.verifySettings()){
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
             trans.add(R.id.fragment_container, setpage).commit();
         }
@@ -92,7 +93,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void editSave(View v) {
-        unsaved = true;
+        // get settings
+        String name = ((EditText)findViewById(R.id.nameE)).getText().toString();
+        int sex = ((RadioGroup) findViewById(R.id.sexCheck)).getCheckedRadioButtonId();
+        String Date = ((TextView) findViewById(R.id.birthE)).getText().toString();
+        String height = ((EditText) findViewById(R.id.heightE)).getText().toString();
+        String weight = ((EditText) findViewById(R.id.weightE)).getText().toString();
+        // save data to internal storage
+        SharedPreferences settings = getSharedPreferences(settingFile, 0);
+        SharedPreferences.Editor stEditor = settings.edit();
+        stEditor.putString("name", name);
+        stEditor.putInt("sex", sex);
+        stEditor.putString("birth", Date);
+        stEditor.putString("height", height);
+        stEditor.putString("weight", weight);
+        stEditor.apply();
+        // update settings
+        setpage.name = name;
+        setpage.sex = sex;
+        setpage.birth = Date;
+        setpage.height = height;
+        setpage.weight = weight;
+        setpage.verifySettings();
+
+        // change fragment
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
         trans.replace(R.id.fragment_container, homepage).commit();
         Snackbar.make(findViewById(R.id.message), "profile saved", Snackbar.LENGTH_LONG).show();
