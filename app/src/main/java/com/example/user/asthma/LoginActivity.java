@@ -2,12 +2,14 @@ package com.example.user.asthma;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,22 +42,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        try{
-            JSONObject packet = new JSONObject();
-            packet.accumulate("account", uid).accumulate("password", pw);
-            askServer.execute(packet);
-        }catch (JSONException e){
-            Log.e("Json error", e.toString());
-        }
-
+        JSONObject loginData = ServerConnection.loginJson(uid, pw);
+        askServer.execute(loginData);
     }
 
 
     public void login(View v){
         String uid = ((EditText) findViewById(R.id.account)).getText().toString();
         String pw = ((EditText) findViewById(R.id.password)).getText().toString();
-
+        //ask server
         loginVerify(uid, pw);
+        //store login records
         SharedPreferences accounts = getSharedPreferences(defaultAccount, 0);
         SharedPreferences.Editor spEditor = accounts.edit();
         spEditor.putString("account", uid);
@@ -63,6 +60,11 @@ public class LoginActivity extends AppCompatActivity {
         spEditor.apply();
     }
 
+    public void goRegister(View v){
+        //start registerActivity
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+    }
 
 
     @Override
@@ -77,12 +79,12 @@ public class LoginActivity extends AppCompatActivity {
         String pw = accounts.getString("password", "");
         edAccount.setText(uid);
         edPwd.setText(pw);
+        //test if can login
         loginVerify(uid, pw);
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-
     }
 }

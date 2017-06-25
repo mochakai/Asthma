@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -26,11 +27,33 @@ import static com.example.user.asthma.LoginActivity.defaultAccount;
  * Network cannot run in main(UI) thread, so use asyncTask
 **/
 
-public class ServerConnection extends AsyncTask<JSONObject, Void, String> {
+class ServerConnection extends AsyncTask<JSONObject, Void, String> {
     private static String server_url = "http://140.113.123.156:33333";
     private String type;
     private Context caller;
     private ServerResponse responseFunc;
+
+    static JSONObject loginJson(String uid, String pw){
+        try{
+            JSONObject packet = new JSONObject();
+            packet.accumulate("account", uid).accumulate("password", pw);
+            return packet;
+        }catch (JSONException e){
+            Log.e("Json error", e.toString());
+        }
+        return null;
+    }
+    static JSONObject registerJson(String uid, String pw){
+        try{
+            JSONObject packet = new JSONObject();
+            packet.accumulate("account", uid).accumulate("password", pw);
+            return packet;
+        }catch (JSONException e){
+            Log.e("Json error", e.toString());
+        }
+        return null;
+    }
+
 
     private String register (JSONObject json){
         OkHttpClient client = new OkHttpClient();
@@ -68,7 +91,7 @@ public class ServerConnection extends AsyncTask<JSONObject, Void, String> {
         return result;
     }
 
-    public ServerConnection(String connectType, Context caller, ServerResponse responseFunc){
+    ServerConnection(String connectType, Context caller, ServerResponse responseFunc){
         this.type = connectType;
         this.caller = caller;
         this.responseFunc = responseFunc;
