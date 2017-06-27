@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().getItem(1).setChecked(true);
 
-        homepage = HomeFragment.newInstance("a", "b");
+        homepage = HomeFragment.newInstance();
         notipage = NotiFragment.newInstance("a", "b");
         setpage = SettingFragment.newInstance();
         if(!setpage.verifySettings()){
