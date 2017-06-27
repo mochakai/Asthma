@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private SettingFragment setpage;
     boolean logon = false;
     public static final int FUNC_LOGIN = 1;
-    public static final String settingFile = "settings";
+    public static final String settingFile = "Settings";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,15 +66,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(!logon){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivityForResult(intent, FUNC_LOGIN);
-        }
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().getItem(1).setChecked(true);
