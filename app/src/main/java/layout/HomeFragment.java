@@ -44,6 +44,7 @@ implements LocationListener{
     private LocationManager lms;
     private Location location;
     private String bestProvider = LocationManager.GPS_PROVIDER;
+    private static String lastProvider = LocationManager.GPS_PROVIDER;
     private final int FINE_LOCATION_PERMISSION = 9999;
     Typeface weatherFont;
     TextView cityField;
@@ -79,15 +80,15 @@ implements LocationListener{
             LocationManager status = (LocationManager) (this.getActivity().getSystemService(LOCATION_SERVICE));
             if(status.isProviderEnabled(LocationManager.GPS_PROVIDER)|| status.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
             {
+                getService = true; //確認開啟定位服務
                 //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
-                LocationResult lr = locationServiceInitial();
+                locationServiceInitial();
 //                if(lr != null) {
+//                    updateWeatherData(lr.lon, lr.lat);
 //                    Toast.makeText(getActivity(), lr.lon + " : " + lr.lat, Toast.LENGTH_LONG).show();
 //                }
-                updateWeatherData(lr.lon, lr.lat);
             } else {
                 Toast.makeText(getActivity(), "請開啟定位服務", Toast.LENGTH_LONG).show();
-                getService = true; //確認開啟定位服務
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); //開啟設定頁面
             }
         }
@@ -194,25 +195,27 @@ implements LocationListener{
 //        updateWeatherData(city);
 //    }
 
-    private LocationResult locationServiceInitial() {
+    private void locationServiceInitial() {
         lms = (LocationManager) this.getActivity().getSystemService(LOCATION_SERVICE); //取得系統定位服務
         Criteria criteria = new Criteria();  //資訊提供者選取標準
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         bestProvider = lms.getBestProvider(criteria, true);    //選擇精準度最高的提供者
         if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FINE_LOCATION_PERMISSION);
-            return null;
+            return;
         }
+
 //        if(bestProvider != null){
 //            Toast.makeText(getActivity(), bestProvider, Toast.LENGTH_LONG).show();
 //        }
-        lms.requestLocationUpdates(bestProvider, 10, 1, this);
-        Location location = lms.getLastKnownLocation(bestProvider);
-        //Toast.makeText(getActivity(), (CharSequence) location, Toast.LENGTH_LONG).show();
+//        lms.requestLocationUpdates(bestProvider, 10, 1, this);
+//        Location location = lms.getLastKnownLocation(bestProvider);
+//        onLocationChanged(location);
+//        LocationResult lr = getLocation(location);
+//        updateWeatherData(lr.lon, lr.lat);
+//        Toast.makeText(getActivity(), String.valueOf(location.getLongitude()), Toast.LENGTH_LONG).show();
 
-
-
-        return getLocation(location);
+        //return getLocation(location);
     }
 
     private LocationResult getLocation(Location location) { //將定位資訊顯示在畫面中
@@ -230,7 +233,14 @@ implements LocationListener{
 
     @Override
     public void onLocationChanged(Location location) {
-        getLocation(location);
+        //Toast.makeText(getActivity(), bestProvider, Toast.LENGTH_LONG).show();
+        LocationResult lr = getLocation(location);
+        if(lr == null)
+            Log.d("locationResult", "null");
+        if(lr != null) {
+            updateWeatherData(lr.lon, lr.lat);
+            lastProvider = location.getProvider();
+        }
     }
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -252,9 +262,14 @@ implements LocationListener{
             if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FINE_LOCATION_PERMISSION);
             }
-            lms.requestLocationUpdates(bestProvider, 10, 1, this);
-            Toast.makeText(getActivity(), "Update " + bestProvider, Toast.LENGTH_LONG).show();
-            //服務提供者、更新頻率60000毫秒=1分鐘、最短距離、地點改變時呼叫物件
+            else {
+                lms.requestLocationUpdates("gps", 100, 1, this);
+                lms.requestLocationUpdates("network", 100, 1, this);
+                Location location = lms.getLastKnownLocation(lastProvider);
+                onLocationChanged(location);
+                //Toast.makeText(getActivity(), "Update " + bestProvider, Toast.LENGTH_LONG).show();
+                //服務提供者、更新頻率60000毫秒=1分鐘、最短距離、地點改變時呼叫物件
+            }
         }
     }
     @Override
