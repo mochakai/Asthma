@@ -67,7 +67,6 @@ class ServerConnection extends AsyncTask<JSONObject, Void, String> {
         try {
             res = client.newCall(req).execute();
             result = res.body().string();
-            if (result == null) result="";
         }catch (IOException e){
             e.printStackTrace();
             Log.w("login error", "no internet or timeout");
