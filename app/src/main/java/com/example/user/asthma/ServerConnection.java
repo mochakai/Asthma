@@ -54,29 +54,12 @@ class ServerConnection extends AsyncTask<JSONObject, Void, String> {
         return null;
     }
 
-
-    private String register (JSONObject json){
-        OkHttpClient client = new OkHttpClient();
-        RequestBody reqBody = RequestBody.create(MediaType.parse("application/json"), json.toString());
-        Request req = new Request.Builder().url(server_url+"/regist").post(reqBody).build();
-        Response res;
-        String result;
-        result = "";
-        try {
-            res = client.newCall(req).execute();
-            result = res.body().string();
-        }catch (IOException e){
-            e.printStackTrace();
-            Log.w("register error", "no internet or timeout");
-        }
-        return result;
-    }
-    private String login (JSONObject json){
+    private String sendToServer (JSONObject json){
         Log.i("login", json.toString());
         OkHttpClient client = new OkHttpClient();
         RequestBody reqBody = RequestBody.create(MediaType.parse("application/json"), json.toString());
         Headers header = new Headers.Builder().add("Content-Type", "application/json").build();
-        Request req = new Request.Builder().url(server_url+"/login").post(reqBody).headers(header).build();
+        Request req = new Request.Builder().url(server_url+ "/" + type).post(reqBody).headers(header).build();
         Log.d("req body", reqBody.toString());
         Response res;
         String result;
@@ -99,14 +82,7 @@ class ServerConnection extends AsyncTask<JSONObject, Void, String> {
 
     @Override
     protected String doInBackground(JSONObject... params) {
-        if (type.equals("register")){
-            return register(params[0]);
-        }else if (type.equals("login")){
-            String msg = login(params[0]);
-            Log.i("background", msg);
-            return msg;
-        }
-        return "fail";
+        return sendToServer(params[0]);
     }
 
     @Override
