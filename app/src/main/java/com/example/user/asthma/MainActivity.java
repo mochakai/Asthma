@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import layout.HomeFragment;
 import layout.NotiFragment;
@@ -24,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homepage;
     private NotiFragment notipage;
     private SettingFragment setpage;
-    boolean logon = false;
     public static final int FUNC_LOGIN = 1;
     public static final String settingFile = "Settings";
 
@@ -54,13 +54,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == FUNC_LOGIN){
-            if(resultCode == RESULT_OK){
-                String uid = data.getStringExtra("LOGIN_USERID");
-                String pw = data.getStringExtra("LOGIN_PASSWD");
-                Log.d("RESULT", uid + " / " + pw);
-                Snackbar.make(findViewById(R.id.message), "welcome "+uid, Snackbar.LENGTH_LONG).show();
-            }
-            else{
+            if(resultCode == RESULT_CANCELED){
+                Toast.makeText(this, "Please login!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -73,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, FUNC_LOGIN);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
