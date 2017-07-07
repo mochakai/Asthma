@@ -15,34 +15,11 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements ServerConnection.ServerResponse {
 
     public void registerVerify(String uid, String pw){
         JSONObject registerData = ServerConnection.registerJson(uid, pw);
-        ServerConnection askServer = new ServerConnection("register", this, new ServerResponse() {
-            @Override
-            public void onServerResponse(String result, Context caller) {
-                String status = "";
-                String account = "";
-                try{
-                    JSONObject json = new JSONObject(result);
-                    status = json.getString("status");
-                    String msg = json.getString("msg");
-                    account = json.getString("account");
-                    Toast.makeText(caller, msg, Toast.LENGTH_LONG).show();
-                }catch(JSONException e){
-                    e.printStackTrace();
-                }
-                if (status.equals("success")){
-                    Log.d("register response", "success");
-
-                    Intent i = new Intent();
-                    i.putExtra("register_account", account);
-                    ((Activity)caller).setResult(RESULT_OK, i);
-                    ((Activity)caller).finish();
-                }
-            }
-        });
+        ServerConnection askServer = new ServerConnection("register", this);
         askServer.execute(registerData);
     }
 
@@ -73,6 +50,29 @@ public class RegisterActivity extends AppCompatActivity {
     public void onBackPressed(){
         setResult(RESULT_CANCELED);
         finish();
+    }
+
+    @Override
+    public void onServerResponse(String result) {
+        String status = "";
+        String account = "";
+        try{
+            JSONObject json = new JSONObject(result);
+            status = json.getString("status");
+            String msg = json.getString("msg");
+            account = json.getString("account");
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        if (status.equals("success")){
+            Log.d("register response", "success");
+
+            Intent i = new Intent();
+            i.putExtra("register_account", account);
+            setResult(RESULT_OK, i);
+            finish();
+        }
     }
 
 }

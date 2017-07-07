@@ -20,32 +20,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements ServerConnection.ServerResponse{
     public static final String defaultAccount = "Account";
     public static final int FUNC_REG = 1;
     public void loginVerify(String uid, String pw){
         if (uid.equals("") || pw.equals(""))
             return;
-        ServerConnection askServer = new ServerConnection("login", this, new ServerResponse() {
-            @Override
-            public void onServerResponse(String result, Context caller) {
-                //parse result as json
-                String status = "";
-                try{
-                    JSONObject json = new JSONObject(result);
-                    status = json.getString("status");
-                    String msg = json.getString("msg");
-                    Toast.makeText(caller, msg, Toast.LENGTH_SHORT).show();
-                }catch(JSONException e){
-                    e.printStackTrace();
-                }
-                if (status.equals("success")){
-                    Log.d("login procedure", "success");
-                    ((Activity)caller).setResult(RESULT_OK);
-                    ((Activity)caller).finish();
-                }
-            }
-        });
+        ServerConnection askServer = new ServerConnection("login", this);
 
         JSONObject loginData = ServerConnection.loginJson(uid, pw);
         askServer.execute(loginData);
@@ -111,5 +92,24 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop(){
         super.onStop();
+    }
+
+    @Override
+    public void onServerResponse(String result) {
+        //parse result as json
+        String status = "";
+        try{
+            JSONObject json = new JSONObject(result);
+            status = json.getString("status");
+            String msg = json.getString("msg");
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        if (status.equals("success")){
+            Log.d("login procedure", "success");
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 }

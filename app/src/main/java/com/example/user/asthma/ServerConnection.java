@@ -27,11 +27,14 @@ import static com.example.user.asthma.LoginActivity.defaultAccount;
  * Network cannot run in main(UI) thread, so use asyncTask
 **/
 
-class ServerConnection extends AsyncTask<JSONObject, Void, String> {
+public class ServerConnection extends AsyncTask<JSONObject, Void, String> {
     private static String server_url = "http://140.113.123.156:33333";
     private String type;
-    private Context caller;
     private ServerResponse responseFunc;
+
+    public interface ServerResponse {
+        void onServerResponse(String result);
+    }
 
     static JSONObject loginJson(String uid, String pw){
         try{
@@ -63,20 +66,19 @@ class ServerConnection extends AsyncTask<JSONObject, Void, String> {
         Log.d("req body", reqBody.toString());
         Response res;
         String result;
-        result = "";
         try {
             res = client.newCall(req).execute();
             result = res.body().string();
         }catch (IOException e){
             e.printStackTrace();
             Log.w("login error", "no internet or timeout");
+            return "{\"status\":\"Internet timeout\", \"msg\": "+ R.string.internet_error +"}";
         }
         return result;
     }
 
-    ServerConnection(String connectType, Context caller, ServerResponse responseFunc){
+    ServerConnection(String connectType, ServerResponse responseFunc){
         this.type = connectType;
-        this.caller = caller;
         this.responseFunc = responseFunc;
     }
 
@@ -88,6 +90,6 @@ class ServerConnection extends AsyncTask<JSONObject, Void, String> {
     @Override
     protected void onPostExecute(String result){
         Log.d("Async Task result", result);
-        responseFunc.onServerResponse(result, caller);
+        responseFunc.onServerResponse(result);
     }
 }
