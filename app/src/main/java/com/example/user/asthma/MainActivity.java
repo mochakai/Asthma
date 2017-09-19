@@ -115,4 +115,9 @@ public class MainActivity extends AppCompatActivity {
         trans.replace(R.id.fragment_container, homepage).commit();
         Snackbar.make(findViewById(R.id.message), "profile saved", Snackbar.LENGTH_LONG).show();
     }
+
+    public void OpenJournal(View v){
+        Intent intent = new Intent(this, JournalActivity.class);
+        startActivity(intent);
+    }
 }

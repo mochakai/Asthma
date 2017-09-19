@@ -139,7 +139,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#3f0098cb"
+        android:background="@color/button_background"
         android:elevation="0dp"
         android:onClick="editSave"
         android:text="@string/editCheck" />
