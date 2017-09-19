@@ -8,7 +8,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -115,5 +114,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
         trans.replace(R.id.fragment_container, homepage).commit();
         Snackbar.make(findViewById(R.id.message), "profile saved", Snackbar.LENGTH_LONG).show();
+    }
+
+    public void OpenJournal(View v){
+        Intent intent = new Intent(this, JournalActivity.class);
+        startActivity(intent);
     }
 }
