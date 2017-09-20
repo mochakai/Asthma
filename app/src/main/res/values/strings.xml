@@ -49,4 +49,15 @@
     <string name="weather_thunder">&#xf01e;</string>
     <string name="weather_drizzle">&#xf01c;</string>
     <string name="place_not_found">Sorry, no weather data found.</string>
+
+    <!-- Strings for filling fields -->
+    <string-array name="fields">
+        <item>temp</item>
+        <item>hi1</item>
+        <item>hi2</item>
+    </string-array>
+    <string name="setContent">Choose fields to show</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="setChartContent">set chart content</string>
 </resources>
