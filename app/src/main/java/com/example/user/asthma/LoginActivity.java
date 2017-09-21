@@ -1,27 +1,21 @@
 package com.example.user.asthma;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity implements ServerConnection.ServerResponse{
-
     public static final String defaultAccount = "Account";
     public static final int FUNC_REG = 1;
     public void loginVerify(String uid, String pw){
-
         if (uid.equals("") || pw.equals(""))
             return;
         ServerConnection askServer = new ServerConnection("login", this);
