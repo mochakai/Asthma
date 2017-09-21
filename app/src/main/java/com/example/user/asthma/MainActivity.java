@@ -8,7 +8,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -17,13 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import layout.HomeFragment;
-import layout.NotiFragment;
+import layout.ChartFragment;
 import layout.SettingFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private HomeFragment homepage;
-    private NotiFragment notipage;
+    private ChartFragment chpage;
     private SettingFragment setpage;
     public static final int FUNC_LOGIN = 1;
     public static final String settingFile = "Settings";
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     trans.replace(R.id.fragment_container, setpage).commit();
                     return true;
                 case R.id.navigation_notifications:
-                    trans.replace(R.id.fragment_container, notipage).commit();
+                    trans.replace(R.id.fragment_container, chpage).commit();
                     return true;
             }
             return false;
@@ -68,14 +67,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivityForResult(intent, FUNC_LOGIN);
+        //startActivityForResult(intent, FUNC_LOGIN);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.getMenu().getItem(1).setChecked(true);
 
         homepage = HomeFragment.newInstance();
-        notipage = NotiFragment.newInstance("a", "b");
+        chpage = ChartFragment.newInstance();
         setpage = SettingFragment.newInstance();
         if(!setpage.verifySettings()){
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
