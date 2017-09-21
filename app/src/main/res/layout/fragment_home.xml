@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16sp"
-    android:background="#c5da88"
+    android:background="@color/mocha_background"
     tools:context="layout.HomeFragment">
 
 
@@ -59,7 +59,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:background="@color/button_background"
-        android:elevation="1dp"
         android:onClick="OpenJournal"
         android:text="@string/journalButton"
         android:textAllCaps="false"

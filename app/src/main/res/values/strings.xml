@@ -54,4 +54,14 @@
 
     <!-- String related to homepage -->
     <string name="journalButton">Journal</string>
+
+    <!-- String related to homepage -->
+    <string name="feverT">發燒症狀</string>
+    <string name="haveOn">有</string>
+    <string name="haveOff">沒有</string>
+    <string name="coughT">咳嗽</string>
+    <string name="coughOn">咳嗽</string>
+    <string name="coughOff">無咳嗽</string>
+    <string name="sleepT">睡眠狀況:</string>
+    <string name="breathT">呼吸狀況:</string>
 </resources>
