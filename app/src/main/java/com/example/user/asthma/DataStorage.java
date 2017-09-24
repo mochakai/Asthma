@@ -1,18 +1,14 @@
 package com.example.user.asthma;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.model.XYSeries;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -56,7 +52,15 @@ class DataStorage extends SQLiteOpenHelper{
 
         for (String field : fields) {
             TimeSeries series = new TimeSeries(field);
-            try (Cursor cursor = instance.getReadableDatabase().query("main", fields, null, null, null, null, null)) {
+
+            Calendar c = Calendar.getInstance();
+            c.set(2017, 9, 24, 0, 0, 0);
+            series.add(c.getTime(), 4);
+            c.add(Calendar.DATE, -1);
+            series.add(c.getTime(), 1);
+            c.add(Calendar.DATE, -1);
+            series.add(c.getTime(), 2);
+            /*try (Cursor cursor = instance.getReadableDatabase().query("main", fields, null, null, null, null, null)) {
                 if (cursor.moveToFirst()) do {
                     double val = cursor.getDouble(cursor.getColumnIndex(field));
                     Date date = null;
@@ -72,10 +76,21 @@ class DataStorage extends SQLiteOpenHelper{
             } finally {
                 Log.d("read value", field);
 
-            }
+            }*/
             dataset.addSeries(series);
         }
-        return dataset;//TODO: what to return when queried
+
+        TimeSeries serie = new TimeSeries("test");
+
+        Calendar c = Calendar.getInstance();
+        c.set(2017, 9, 24, 0, 0, 0);
+        serie.add(c.getTime(), 1);
+        c.add(Calendar.DATE, -1);
+        serie.add(c.getTime(), 2);
+        c.add(Calendar.DATE, -1);
+        serie.add(c.getTime(), 4);
+        dataset.addSeries(serie);
+        return dataset;
     }
 }
 

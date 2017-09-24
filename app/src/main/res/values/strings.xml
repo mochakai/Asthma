@@ -53,8 +53,6 @@
     <!-- Strings for filling fields -->
     <string-array name="fields">
         <item>temp</item>
-        <item>hi1</item>
-        <item>hi2</item>
     </string-array>
     <string name="setContent">Choose fields to show</string>
     <string name="save">Save</string>
