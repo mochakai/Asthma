@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#26453D</color>
     <color name="colorAccent">#A8497A</color>
     <color name="mocha_background">#6F90B44B</color>
+    <color name="sakura_background">#FEDFE1</color>
     <color name="setting_background">#91B493</color>
     <color name="journal_background">#DAC9A6</color>
     <color name="chart_background">#5FB1B479</color>
@@ -12,5 +13,51 @@
     <color name="alert">#E83015</color>
     <color name="blue">#5F005CAF</color>
     <color name="darkBlue">#0B346E</color>
+
+    <color name="chart_colors0">#43341B</color>
+    <color name="chart_colors1">#2EA9DF</color>
+    <color name="chart_colors2">#096148</color>
+    <color name="chart_colors3">#64363C</color>
+    <color name="chart_colors4">#D19826</color>
+    <color name="chart_colors5">#D0104C</color>
+    <color name="chart_colors6">#2B5F75</color>
+    <color name="chart_colors7">#734338</color>
+    <color name="chart_colors8">#6A4C9C</color>
+    <color name="chart_colors9">#261E47</color>
+    <color name="chart_colors10">#7BA23F</color>
+    <color name="chart_colors11">#F05E1C</color>
+    <color name="chart_colors12">#8F5A3C</color>
+    <color name="chart_colors13">#516E41</color>
+    <color name="chart_colors14">#572A3F</color>
+    <color name="chart_colors15">#6E552F</color>
+    <color name="chart_colors16">#B5495B</color>
+    <color name="chart_colors17">#FFC408</color>
+    <color name="chart_colors18">#74673E</color>
+    <color name="chart_colors19">#26453D</color>
+    <color name="chart_colors20">#91AD70</color>
+    <color name="chart_colors21">#533D5B</color>
+    <color name="chart_colors22">#855B32</color>
+    <color name="chart_colors23">#1B813E</color>
+    <color name="chart_colors24">#8E354A</color>
+    <color name="chart_colors25">#113285</color>
+    <color name="chart_colors26">#574C57</color>
+    <color name="chart_colors27">#305A56</color>
+    <color name="chart_colors28">#0089A7</color>
+    <color name="chart_colors29">#86473F</color>
+    <color name="chart_colors30">#E16B8C</color>
+    <color name="chart_colors31">#0F2540</color>
+    <color name="chart_colors32">#884C3A</color>
+    <color name="chart_colors33">#0F4C3A</color>
+    <color name="chart_colors34">#554236</color>
+    <color name="chart_colors35">#9A5034</color>
+    <color name="chart_colors36">#66327C</color>
+    <color name="chart_colors37">#ADA142</color>
+    <color name="chart_colors38">#6C6A2D</color>
+    <color name="chart_colors39">#E03C8A</color>
+    <color name="chart_colors40">#60373E</color>
+    <color name="chart_colors41">#707C74</color>
+    <color name="chart_colors42">#373C38</color>
+    <color name="chart_colors43">#3A3226</color>
+
 
 </resources>
