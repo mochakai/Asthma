@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-
 public class JournalActivity extends AppCompatActivity {
 
     private SeekBar sleepBar, daytimeBar, nose1Bar, nose2Bar, nose3Bar, nose4Bar, eyeBar, skinBar;
