@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mocha_background"
+    android:background="@color/setting_background"
     android:orientation="vertical"
     android:gravity="end|right"
     android:padding="6dp"
@@ -125,7 +125,6 @@
             android:hint="@string/weightE"
             android:textAlignment="center"
             android:inputType="number" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -139,7 +138,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#3f0098cb"
+        android:background="@color/button_background"
         android:elevation="0dp"
         android:onClick="editSave"
         android:text="@string/editCheck" />

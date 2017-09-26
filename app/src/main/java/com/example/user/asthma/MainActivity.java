@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import layout.HomeFragment;
 import layout.ChartFragment;
@@ -52,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == FUNC_LOGIN){
-            if(resultCode == RESULT_CANCELED){
-                Toast.makeText(this, "Please login!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
+//        if(requestCode == FUNC_LOGIN){
+//            if(resultCode == RESULT_CANCELED){
+//                Toast.makeText(this, "Please login!", Toast.LENGTH_SHORT).show();
+//                finish();
+//            }
+//        }
     }
 
 
@@ -114,5 +113,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
         trans.replace(R.id.fragment_container, homepage).commit();
         Snackbar.make(findViewById(R.id.message), "profile saved", Snackbar.LENGTH_LONG).show();
+    }
+
+    public void OpenJournal(View v){
+        Intent intent = new Intent(this, JournalActivity.class);
+        startActivity(intent);
     }
 }

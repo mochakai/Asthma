@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="mocha_background">#7F669801</color>
+    <color name="colorPrimary">#1B813E</color>
+    <color name="colorPrimaryDark">#26453D</color>
+    <color name="colorAccent">#A8497A</color>
+    <color name="mocha_background">#6F90B44B</color>
+    <color name="setting_background">#91B493</color>
+    <color name="journal_background">#DAC9A6</color>
+    <color name="chart_background">#5FB1B479</color>
+    <color name="button_background">#5FA0674B</color>
+    <color name="warning">#DB4D6D</color>
+    <color name="alert">#E83015</color>
+    <color name="blue">#5F005CAF</color>
+    <color name="darkBlue">#0B346E</color>
+
 </resources>
