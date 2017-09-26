@@ -31,10 +31,6 @@ public class ChartView {
         //chartView.repaint();
         dataset = DataStorage.getValues(context, fields);
         renderer = setRenderer(context, fields);
-        for (int i=0; i<fields.length; i++){
-            renderer.addYTextLabel(i+1, fields[i]);
-            renderer.setYLabelsVerticalPadding(40);
-        }
     }
     private XYMultipleSeriesRenderer setRenderer(Context context, String... fields){
         XYMultipleSeriesRenderer ret = new XYMultipleSeriesRenderer();
@@ -47,12 +43,6 @@ public class ChartView {
             r.setFillPoints(true);
             ret.addSeriesRenderer(r);
         }
-        XYSeriesRenderer r = new XYSeriesRenderer();
-        r.setColor(context.getResources().getColor(R.color.chart_colors0));
-        r.setPointStyle(PointStyle.CIRCLE);
-        r.setLineWidth(5);
-        r.setFillPoints(true);
-        ret.addSeriesRenderer(r);
 
 
         ret.setChartTitle(context.getResources().getString(R.string.chartTitle));

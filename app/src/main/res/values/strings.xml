@@ -73,12 +73,22 @@
 
     <!-- Strings for filling fields -->
     <string-array name="fields">
-        <item>temp</item>
+        <item>fever</item>
+        <item>sleep</item>
+        <item>daytime</item>
+        <item>nose1</item>
+        <item>nose2</item>
+        <item>nose3</item>
+        <item>nose4</item>
+        <item>eye</item>
+        <item>skin</item>
     </string-array>
     <string name="setContent">Choose fields to show</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="setChartContent">set chart content</string>
     <string name="chartTitle">Daily statistics</string>
+    <string name="serverResult">Server Result</string>
+    <string name="waitServerMsg">Waiting for server</string>
 
 </resources>

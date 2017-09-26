@@ -1,12 +1,24 @@
 package com.example.user.asthma;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class JournalActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Date;
+
+public class JournalActivity extends AppCompatActivity implements ServerConnection.ServerResponse{
 
     private SeekBar sleepBar, daytimeBar, nose1Bar, nose2Bar, nose3Bar, nose4Bar, eyeBar, skinBar;
     private TextView sleepText, daytimeText, nose1Text, nose2Text, nose3Text, nose4Text, eyeText, skinText;
@@ -19,8 +31,58 @@ public class JournalActivity extends AppCompatActivity {
     }
 
     public void journalSaved(View v){
-        this.finish();
+        //send to server
+        ServerConnection askServer = new ServerConnection("predict/" + ServerConnection.uid, this);
+
+        //prepare data
+        dataFormat df = new dataFormat();
+        df.date = new Date();
+        df.fever = ((CheckBox) findViewById(R.id.feverT)).isChecked()? 1:0;
+        df.sleep = sleepBar.getProgress();
+        df.daytime = daytimeBar.getProgress();
+        df.nose1 = nose1Bar.getProgress();
+        df.nose2 = nose2Bar.getProgress();
+        df.nose3 = nose3Bar.getProgress();
+        df.nose4 = nose4Bar.getProgress();
+        df.eye = eyeBar.getProgress();
+        df.skin = skinBar.getProgress();
+
+        //send to server
+        askServer.execute(df.toJSON());
+        //insert to database
+        if (!DataStorage.insert(this, df)) Log.w("database insert", "failed");
+        ((Button)findViewById(R.id.saveJournal)).setText(R.string.waitServerMsg);
     }
+
+    @Override
+    public void onServerResponse(String result) {
+        String predictMsg = "", prescription = "";
+        try{
+            JSONObject tmp = new JSONObject(result);
+            if (tmp.getBoolean("success")) {
+                JSONObject json = new JSONObject(tmp.getString("result"));
+                predictMsg = json.getString("predict");
+                prescription = json.getString("prescription");
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        Log.d("predict_msg", predictMsg);
+        Log.d("prescription", prescription);
+        //show dialog of response
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.serverResult)
+                .setMessage(predictMsg + "\n" + prescription)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        finish();
+                    }
+                }).create().show();
+    }
+
 
     public void seekBarInitial(){
         //sleepBar setting

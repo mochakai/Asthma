@@ -1,18 +1,13 @@
 package com.example.user.asthma;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -20,19 +15,18 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.example.user.asthma.LoginActivity.defaultAccount;
 
 /**
  * internet connection to server
  * Network cannot run in main(UI) thread, so use asyncTask
 **/
 
-public class ServerConnection extends AsyncTask<JSONObject, Void, String> {
-    private static String server_url = "http://140.113.123.156:33333";
+class ServerConnection extends AsyncTask<JSONObject, Void, String> {
+    static String uid;
     private String type;
     private ServerResponse responseFunc;
 
-    public interface ServerResponse {
+    interface ServerResponse {
         void onServerResponse(String result);
     }
 
@@ -62,7 +56,8 @@ public class ServerConnection extends AsyncTask<JSONObject, Void, String> {
         OkHttpClient client = new OkHttpClient();
         RequestBody reqBody = RequestBody.create(MediaType.parse("application/json"), json.toString());
         Headers header = new Headers.Builder().add("Content-Type", "application/json").build();
-        Request req = new Request.Builder().url(server_url+ "/" + type).post(reqBody).headers(header).build();
+        String server_url = "http://140.113.123.154:8888";
+        Request req = new Request.Builder().url(server_url + "/" + type).post(reqBody).headers(header).build();
         Log.d("req body", reqBody.toString());
         Response res;
         String result;
@@ -72,7 +67,10 @@ public class ServerConnection extends AsyncTask<JSONObject, Void, String> {
         }catch (IOException e){
             e.printStackTrace();
             Log.w("login error", "no internet or timeout");
-            return "{\"status\":\"Internet timeout\", \"msg\": "+ R.string.internet_error +"}";
+            return "{\"success\": False }";
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            return "{\"success\": False }";
         }
         return result;
     }

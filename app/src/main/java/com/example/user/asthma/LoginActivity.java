@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements ServerConnection
             JSONObject json = new JSONObject(result);
             status = json.getString("status");
             String msg = json.getString("msg");
+            ServerConnection.uid = json.getString("uid");
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         }catch(JSONException e){
             e.printStackTrace();
