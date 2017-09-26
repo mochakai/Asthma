@@ -149,7 +149,7 @@ implements LocationListener{
                             "\n" + "Pressure: " + main.getString("pressure") + " hPa");
 
             currentTemperatureField.setText(
-                    String.format("%.2f", main.getDouble("temp") - 273)+ " ℃");
+                    String.format("%d", main.getInt("temp") - 273)+ " ℃");
 
             DateFormat df = DateFormat.getDateTimeInstance();
             String updatedOn = df.format(new Date(json.getLong("dt")*1000));
