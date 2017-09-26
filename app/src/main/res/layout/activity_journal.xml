@@ -13,24 +13,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:padding="6dp">
 
         <CheckBox
             android:id="@+id/feverT"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/feverT"
             android:textSize="24sp" />
 
-        <ToggleButton
-            android:id="@+id/coughB"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textOff="@string/coughOff"
-            android:textOn="@string/coughOn" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,8 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text=""
-            android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <SeekBar
             android:id="@+id/sleepBar"
@@ -65,7 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:max="2"
+            android:max="3"
             android:progress="0"
             android:maxHeight="3dp"
             android:minHeight="3dp"
@@ -83,31 +76,30 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/breathT"
+            android:id="@+id/daytimeT"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/breathT"
+            android:text="@string/daytimeT"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/breathText"
+            android:id="@+id/daytimeText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text=""
-            android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <SeekBar
-            android:id="@+id/breathBar"
+            android:id="@+id/daytimeBar"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:max="2"
+            android:max="4"
             android:progress="0"
             android:maxHeight="3dp"
             android:minHeight="3dp"
@@ -120,27 +112,286 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="6dp">
 
         <TextView
-            android:id="@+id/T"
-            android:layout_width="0dp"
+            android:id="@+id/noseT"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Title"
+            android:text="@string/noseT"
             android:textAlignment="center"
             android:textSize="24sp" />
 
-        <EditText
-            android:id="@+id/heightE"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="3"
-            android:hint="@string/heightE"
-            android:inputType="number"
-            android:textAlignment="center" />
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:id="@+id/nose1T"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nose1T"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/nose1Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/nose1Bar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="2"
+                android:progress="0"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:scrollbarSize="50dp"
+                android:progressDrawable="@drawable/bar_bg"
+                android:thumbTint="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:id="@+id/nose2T"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nose2T"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/nose2Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/nose2Bar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="2"
+                android:progress="0"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:scrollbarSize="50dp"
+                android:progressDrawable="@drawable/bar_bg"
+                android:thumbTint="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:id="@+id/nose3T"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nose1T"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/nose3Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/nose3Bar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="2"
+                android:progress="0"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:scrollbarSize="50dp"
+                android:progressDrawable="@drawable/bar_bg"
+                android:thumbTint="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:id="@+id/nose4T"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nose3T"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/nose4Text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/nose4Bar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="2"
+                android:progress="0"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:scrollbarSize="50dp"
+                android:progressDrawable="@drawable/bar_bg"
+                android:thumbTint="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/eyeT"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/eyeT"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/eyeText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/eyeBar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="2"
+                android:progress="0"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:scrollbarSize="50dp"
+                android:progressDrawable="@drawable/bar_bg"
+                android:thumbTint="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/skinT"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/skinT"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/skinText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/skinBar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="2"
+                android:progress="0"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:scrollbarSize="50dp"
+                android:progressDrawable="@drawable/bar_bg"
+                android:thumbTint="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:id="@+id/otherT"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/otherT"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/otherE"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="3"
+                android:hint=""
+                android:inputType="number"
+                android:textAlignment="center" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <Button

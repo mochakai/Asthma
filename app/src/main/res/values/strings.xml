@@ -3,6 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_setting">Setting</string>
     <string name="title_analysis">Analysis</string>
+    <string name="journalButton">Journal</string>
 
     <!-- Strings related to editpage -->
     <string name="nameT">姓名：</string>
@@ -52,6 +53,24 @@
     <string name="weather_drizzle">&#xf01c;</string>
     <string name="place_not_found">Sorry, no weather data found.</string>
 
+    <!-- String related to journal -->
+    <string name="feverT">發燒症狀</string>
+    <string name="haveOn">有</string>
+    <string name="haveOff">沒有</string>
+    <string name="coughT">咳嗽</string>
+    <string name="coughOn">咳嗽</string>
+    <string name="coughOff">無咳嗽</string>
+    <string name="sleepT">夜間症狀:</string>
+    <string name="daytimeT">白天症狀:</string>
+    <string name="noseT">鼻子症狀:</string>
+    <string name="nose1T">鼻癢揉鼻</string>
+    <string name="nose2T">打噴嚏</string>
+    <string name="nose3T">鼻塞</string>
+    <string name="nose4T">流鼻水(分泌物)</string>
+    <string name="eyeT">眼睛症狀:</string>
+    <string name="skinT">皮膚症狀:</string>
+    <string name="otherT">其他備註:</string>
+
     <!-- Strings for filling fields -->
     <string-array name="fields">
         <item>temp</item>
@@ -60,5 +79,6 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="setChartContent">set chart content</string>
+    <string name="chartTitle">Daily statistics</string>
     
 </resources>

@@ -5,13 +5,10 @@ import android.graphics.Color;
 import android.view.View;
 
 import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
-import java.util.Objects;
 
 
 /**
@@ -33,37 +30,46 @@ public class ChartView {
     public void setLines(Context context, String... fields){
         //chartView.repaint();
         dataset = DataStorage.getValues(context, fields);
-        renderer = setRenderer(fields);
+        renderer = setRenderer(context, fields);
         for (int i=0; i<fields.length; i++){
             renderer.addYTextLabel(i+1, fields[i]);
+            renderer.setYLabelsVerticalPadding(40);
         }
     }
-    private XYMultipleSeriesRenderer setRenderer(String... fields){
+    private XYMultipleSeriesRenderer setRenderer(Context context, String... fields){
         XYMultipleSeriesRenderer ret = new XYMultipleSeriesRenderer();
         for (String field: fields){
             XYSeriesRenderer r = new XYSeriesRenderer();
             r.setColor(getColor(field));
             r.setPointStyle(PointStyle.CIRCLE);
+            r.setLineWidth(5);
             r.setFillPoints(true);
             ret.addSeriesRenderer(r);
         }
         XYSeriesRenderer r = new XYSeriesRenderer();
         r.setColor(Color.BLACK);
         r.setPointStyle(PointStyle.CIRCLE);
+        r.setLineWidth(5);
         r.setFillPoints(true);
         ret.addSeriesRenderer(r);
 
 
-        ret.setChartTitle("Daily statistics");
-        ret.setChartTitleTextSize(30);
-        ret.setLegendTextSize(30);
+        ret.setChartTitle(context.getResources().getString(R.string.chartTitle));
+        ret.setChartTitleTextSize(60);
+        ret.setLegendTextSize(60);
+        ret.setPointSize(15);
+        ret.setApplyBackgroundColor(true);
+        ret.setBackgroundColor(context.getResources().getColor(R.color.chart_background));
+        ret.setMarginsColor(context.getResources().getColor(R.color.chart_background));
         ret.setPanEnabled(true, false);
         ret.setZoomEnabled(true, false); // x enable, y disable
         ret.setFitLegend(true);
         ret.setXTitle("Date");
         ret.setShowGrid(true);
         ret.setLabelsTextSize(30);
-        ret.setMarginsColor(Color.WHITE);
+        ret.setXLabelsColor(Color.BLACK);
+        ret.setXLabelsPadding(10);
+        ret.setGridColor(Color.GREEN);
 
         return ret;
     }
