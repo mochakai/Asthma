@@ -52,12 +52,12 @@ class ServerConnection extends AsyncTask<JSONObject, Void, String> {
     }
 
     private String sendToServer (JSONObject json){
-        Log.i("login", json.toString());
+        Log.i("send" + type, json.toString());
         OkHttpClient client = new OkHttpClient();
         RequestBody reqBody = RequestBody.create(MediaType.parse("application/json"), json.toString());
         Headers header = new Headers.Builder().add("Content-Type", "application/json").build();
         String server_url = "http://140.113.123.154:8888";
-        Request req = new Request.Builder().url(server_url + "/" + type).post(reqBody).headers(header).build();
+        Request req = new Request.Builder().url(server_url + "/api/" + type).post(reqBody).headers(header).build();
         Log.d("req body", reqBody.toString());
         Response res;
         String result;

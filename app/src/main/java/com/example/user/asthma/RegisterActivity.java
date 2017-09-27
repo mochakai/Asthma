@@ -54,19 +54,18 @@ public class RegisterActivity extends AppCompatActivity implements ServerConnect
 
     @Override
     public void onServerResponse(String result) {
-        String status = "";
-        String account = "";
+        String success = "";
+        String account = ((EditText) findViewById(R.id.registerAccount)).getText().toString();
         try{
             JSONObject json = new JSONObject(result);
-            status = json.getString("status");
+            success = json.getString("");
             String msg = json.getString("msg");
-            account = json.getString("account");
             Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
         }catch(JSONException e){
             e.printStackTrace();
         }
-        if (status.equals("success")){
-            Log.d("register response", "success");
+        if (success.equals("true")){
+            Log.d("register response", "true");
 
             Intent i = new Intent();
             i.putExtra("register_account", account);

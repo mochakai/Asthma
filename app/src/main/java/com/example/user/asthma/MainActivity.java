@@ -13,12 +13,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import layout.HomeFragment;
 import layout.ChartFragment;
 import layout.SettingFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ServerConnection.ServerResponse{
 
     private HomeFragment homepage;
     private ChartFragment chpage;
@@ -66,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = new Intent(this, LoginActivity.class);
-        //startActivityForResult(intent, FUNC_LOGIN);
+        startActivityForResult(intent, FUNC_LOGIN);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -109,14 +118,59 @@ public class MainActivity extends AppCompatActivity {
         setpage.weight = weight;
         setpage.verifySettings();
 
+        // send to server
+        ServerConnection askServer = new ServerConnection("setting/" + ServerConnection.uid, this);
+        JSONObject json = new JSONObject();
+        try {
+            json.accumulate("name", name).accumulate("sex", (sex==R.id.radioButton)).accumulate("age", getAge(Date))
+                    .accumulate("height", height).accumulate("weight", weight);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        askServer.execute(json);
+
         // change fragment
         FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
         trans.replace(R.id.fragment_container, homepage).commit();
         Snackbar.make(findViewById(R.id.message), "profile saved", Snackbar.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onServerResponse(String result) {
+        String msg = "";
+        boolean suc = false;
+        try {
+            JSONObject json = new JSONObject(result);
+            suc = json.getBoolean("success");
+            msg = json.getString("msg");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
     public void OpenJournal(View v){
         Intent intent = new Intent(this, JournalActivity.class);
         startActivity(intent);
+    }
+    private int getAge(String birth){
+        Date birthdate = new Date();
+        try {
+            birthdate = new SimpleDateFormat("yyyy/MM/dd").parse(birth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.setTime(birthdate);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+
+        return age;
     }
 }

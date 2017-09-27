@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,13 +58,15 @@ public class JournalActivity extends AppCompatActivity implements ServerConnecti
     @Override
     public void onServerResponse(String result) {
         String predictMsg = "", prescription = "";
+        boolean suc = false;
         try{
             JSONObject tmp = new JSONObject(result);
-            if (tmp.getBoolean("success")) {
+            if (suc = tmp.getBoolean("success")) {
                 JSONObject json = new JSONObject(tmp.getString("result"));
                 predictMsg = json.getString("predict");
                 prescription = json.getString("prescription");
             }
+            Toast.makeText(this, tmp.getString("msg"), Toast.LENGTH_LONG).show();
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -71,16 +74,21 @@ public class JournalActivity extends AppCompatActivity implements ServerConnecti
         Log.d("predict_msg", predictMsg);
         Log.d("prescription", prescription);
         //show dialog of response
+
+        if (!suc) predictMsg = "Upload not success";
+
         new AlertDialog.Builder(this)
-                .setTitle(R.string.serverResult)
-                .setMessage(predictMsg + "\n" + prescription)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        finish();
-                    }
-                }).create().show();
+            .setTitle(R.string.serverResult)
+            .setMessage(predictMsg + "\n" + prescription)
+            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    finish();
+                }
+            }).create().show();
+
+
     }
 
 

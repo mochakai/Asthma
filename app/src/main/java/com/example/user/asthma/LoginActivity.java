@@ -88,17 +88,17 @@ public class LoginActivity extends AppCompatActivity implements ServerConnection
     @Override
     public void onServerResponse(String result) {
         //parse result as json
-        String status = "";
+        String success = "";
         try{
             JSONObject json = new JSONObject(result);
-            status = json.getString("status");
+            success = json.getString("success");
             String msg = json.getString("msg");
             ServerConnection.uid = json.getString("uid");
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         }catch(JSONException e){
             e.printStackTrace();
         }
-        if (status.equals("success")){
+        if (success.equals("true")){
             Log.d("login procedure", "success");
             setResult(RESULT_OK);
             finish();
