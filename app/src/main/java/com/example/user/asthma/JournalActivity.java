@@ -1,11 +1,9 @@
 package com.example.user.asthma;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +15,12 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class JournalActivity extends AppCompatActivity implements ServerConnection.ServerResponse{
 
-    private SeekBar sleepBar, daytimeBar, nose1Bar, nose2Bar, nose3Bar, nose4Bar, eyeBar, skinBar;
-    private TextView sleepText, daytimeText, nose1Text, nose2Text, nose3Text, nose4Text, eyeText, skinText;
+    private ArrayList<SeekBar> Bars = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +37,14 @@ public class JournalActivity extends AppCompatActivity implements ServerConnecti
         dataFormat df = new dataFormat();
         df.date = new Date();
         df.fever = ((CheckBox) findViewById(R.id.feverT)).isChecked()? 1:0;
-        df.sleep = sleepBar.getProgress();
-        df.daytime = daytimeBar.getProgress();
-        df.nose1 = nose1Bar.getProgress();
-        df.nose2 = nose2Bar.getProgress();
-        df.nose3 = nose3Bar.getProgress();
-        df.nose4 = nose4Bar.getProgress();
-        df.eye = eyeBar.getProgress();
-        df.skin = skinBar.getProgress();
+        df.sleep = Bars.get(0).getProgress();
+        df.daytime = Bars.get(1).getProgress();
+        df.nose1 = Bars.get(2).getProgress();
+        df.nose2 = Bars.get(3).getProgress();
+        df.nose3 = Bars.get(4).getProgress();
+        df.nose4 = Bars.get(5).getProgress();
+        df.eye = Bars.get(6).getProgress();
+        df.skin = Bars.get(7).getProgress();
 
         //send to server
         askServer.execute(df.toJSON());
@@ -93,15 +91,10 @@ public class JournalActivity extends AppCompatActivity implements ServerConnecti
 
 
     public void seekBarInitial(){
-        //sleepBar setting
-        sleepBar = (SeekBar) findViewById(R.id.sleepBar);
-        sleepText = (TextView) findViewById(R.id.sleepText);
-        seekBarReact(sleepBar.getProgress(), sleepText, "sleep");
-        sleepBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int curProgress = 0;
+        SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                curProgress = progress;
+
             }
 
             @Override
@@ -111,169 +104,27 @@ public class JournalActivity extends AppCompatActivity implements ServerConnecti
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBarReact(curProgress, sleepText, "sleep");
+                seekBarReact(seekBar);
             }
-        });
+        };
 
-        //daytimeBar setting
-        daytimeBar = (SeekBar) findViewById(R.id.daytimeBar);
-        daytimeText = (TextView) findViewById(R.id.daytimeText);
-        seekBarReact(daytimeBar.getProgress(), daytimeText, "daytime");
-        daytimeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int curProgress = 0;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                curProgress = progress;
-            }
+        int[] ids = {R.id.sleepBar, R.id.daytimeBar, R.id.nose1Bar, R.id.nose2Bar,
+                     R.id.nose3Bar, R.id.nose4Bar, R.id.eyeBar, R.id.skinBar};
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBarReact(curProgress, daytimeText, "daytime");
-            }
-        });
-
-        //nose1Bar setting
-        nose1Bar = (SeekBar) findViewById(R.id.nose1Bar);
-        nose1Text = (TextView) findViewById(R.id.nose1Text);
-        seekBarReact(nose1Bar.getProgress(), nose1Text, "nose1");
-        nose1Bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int curProgress = 0;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                curProgress = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBarReact(curProgress, nose1Text, "nose1");
-            }
-        });
-
-        //nose2Bar setting
-        nose2Bar = (SeekBar) findViewById(R.id.nose2Bar);
-        nose2Text = (TextView) findViewById(R.id.nose2Text);
-        seekBarReact(nose2Bar.getProgress(), nose2Text, "nose2");
-        nose2Bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int curProgress = 0;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                curProgress = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBarReact(curProgress, nose2Text, "nose2");
-            }
-        });
-
-        //nose3Bar setting
-        nose3Bar = (SeekBar) findViewById(R.id.nose3Bar);
-        nose3Text = (TextView) findViewById(R.id.nose3Text);
-        seekBarReact(nose3Bar.getProgress(), nose3Text, "nose3");
-        nose3Bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int curProgress = 0;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                curProgress = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBarReact(curProgress, nose3Text, "nose3");
-            }
-        });
-
-        //nose4Bar setting
-        nose4Bar = (SeekBar) findViewById(R.id.nose4Bar);
-        nose4Text = (TextView) findViewById(R.id.nose4Text);
-        seekBarReact(nose4Bar.getProgress(), nose4Text, "nose4");
-        nose4Bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int curProgress = 0;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                curProgress = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBarReact(curProgress, nose4Text, "nose4");
-            }
-        });
-
-        //eyeBar setting
-        eyeBar = (SeekBar) findViewById(R.id.eyeBar);
-        eyeText = (TextView) findViewById(R.id.eyeText);
-        seekBarReact(eyeBar.getProgress(), eyeText, "eye");
-        eyeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int curProgress = 0;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                curProgress = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBarReact(curProgress, eyeText, "eye");
-            }
-        });
-
-        //skinBar setting
-        skinBar = (SeekBar) findViewById(R.id.skinBar);
-        skinText = (TextView) findViewById(R.id.skinText);
-        seekBarReact(skinBar.getProgress(), skinText, "skin");
-        skinBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int curProgress = 0;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                curProgress = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBarReact(curProgress, skinText, "skin");
-            }
-        });
+        for (int id: ids){
+            SeekBar seekBar = (SeekBar) findViewById(id);
+            Bars.add(seekBar);
+            seekBarReact(seekBar);
+            seekBar.setOnSeekBarChangeListener(listener);
+        }
     }
 
-    public void seekBarReact(int Progress, TextView text, String type){
-        switch (type) {
-            case "sleep":
-                switch (Progress) {
+    public void seekBarReact(SeekBar seekBar){
+        TextView text;
+        switch (seekBar.getId()) {
+            case R.id.sleepBar:
+                text = (TextView) findViewById(R.id.sleepText);
+                switch (seekBar.getProgress()) {
                     case 0:
                         text.setText("一夜安睡");
                         text.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -295,8 +146,9 @@ public class JournalActivity extends AppCompatActivity implements ServerConnecti
                         break;
                 }
                 break;
-            case "daytime":
-                switch (Progress) {
+            case R.id.daytimeBar:
+                text = (TextView) findViewById(R.id.daytimeText);
+                switch (seekBar.getProgress()) {
                     case 0:
                         text.setText("無咳嗽\n正常作息運動");
                         text.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -322,11 +174,27 @@ public class JournalActivity extends AppCompatActivity implements ServerConnecti
                         break;
                 }
                 break;
-            case "nose1":
-            case "nose2":
-            case "nose3":
-            case "nose4":
-                switch (Progress) {
+            case R.id.nose1Bar:
+            case R.id.nose2Bar:
+            case R.id.nose3Bar:
+            case R.id.nose4Bar:
+                switch (seekBar.getId()){
+                    case R.id.nose1Bar:
+                        text = (TextView) findViewById(R.id.nose1Text);
+                        break;
+                    case R.id.nose2Bar:
+                        text = (TextView) findViewById(R.id.nose2Text);
+                        break;
+                    case R.id.nose3Bar:
+                        text = (TextView) findViewById(R.id.nose3Text);
+                        break;
+                    case R.id.nose4Bar:
+                        text = (TextView) findViewById(R.id.nose4Text);
+                        break;
+                    default:
+                        text = (TextView) findViewById(R.id.nose1Text);
+                }
+                switch (seekBar.getProgress()) {
                     case 0:
                         text.setText("正常");
                         text.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -344,8 +212,9 @@ public class JournalActivity extends AppCompatActivity implements ServerConnecti
                         break;
                 }
                 break;
-            case "eye":
-                switch (Progress) {
+            case R.id.eyeBar:
+                text = (TextView) findViewById(R.id.eyeText);
+                switch (seekBar.getProgress()) {
                     case 0:
                         text.setText("正常");
                         text.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -363,8 +232,9 @@ public class JournalActivity extends AppCompatActivity implements ServerConnecti
                         break;
                 }
                 break;
-            case "skin":
-                switch (Progress) {
+            case R.id.skinBar:
+                text = (TextView) findViewById(R.id.skinText);
+                switch (seekBar.getProgress()) {
                     case 0:
                         text.setText("正常");
                         text.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
