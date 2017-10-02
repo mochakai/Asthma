@@ -67,7 +67,7 @@ class ServerConnection extends AsyncTask<JSONObject, Void, String> {
         }catch (IOException e){
             e.printStackTrace();
             Log.w("login error", "no internet or timeout");
-            return "{\"success\": False }";
+            return "{\"success\": False , \"msg\" : \"Server no response\"}";
         }catch (NullPointerException e){
             e.printStackTrace();
             return "{\"success\": False }";

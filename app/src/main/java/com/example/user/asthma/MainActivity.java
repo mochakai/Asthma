@@ -60,12 +60,12 @@ public class MainActivity extends AppCompatActivity implements ServerConnection.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == FUNC_LOGIN){
-//            if(resultCode == RESULT_CANCELED){
-//                Toast.makeText(this, "Please login!", Toast.LENGTH_SHORT).show();
-//                finish();
-//            }
-//        }
+        if(requestCode == FUNC_LOGIN){
+            if(resultCode == RESULT_CANCELED){
+                Toast.makeText(this, "Please login!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
     }
 
 
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements ServerConnection.
         boolean suc = false;
         try {
             JSONObject json = new JSONObject(result);
-            suc = json.getBoolean("success");
+            //suc = json.getBoolean("success");
             msg = json.getString("msg");
         } catch (JSONException e) {
             e.printStackTrace();

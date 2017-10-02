@@ -64,13 +64,6 @@ class DataStorage extends SQLiteOpenHelper{
         for (String field : fields) {
             TimeSeries series = new TimeSeries(field);
 
-            /*Calendar c = Calendar.getInstance();
-            c.set(2017, 9, 24, 0, 0, 0);
-            series.add(c.getTime(), 4);
-            c.add(Calendar.DATE, -1);
-            series.add(c.getTime(), 1);
-            c.add(Calendar.DATE, -1);
-            series.add(c.getTime(), 2);*/
             try (Cursor cursor = ds.getReadableDatabase().query("main", new String[] {field, "date"}, null, null, null, null, null)) {
                 String log = "";
                 for (String tt: cursor.getColumnNames()) log += tt;
@@ -95,16 +88,6 @@ class DataStorage extends SQLiteOpenHelper{
             dataset.addSeries(series);
         }
 
-        /*TimeSeries serie = new TimeSeries("test");
-
-        Calendar c = Calendar.getInstance();
-        c.set(2017, 9, 24, 0, 0, 0);
-        serie.add(c.getTime(), 1);
-        c.add(Calendar.DATE, -1);
-        serie.add(c.getTime(), 2);
-        c.add(Calendar.DATE, -1);
-        serie.add(c.getTime(), 4);
-        dataset.addSeries(serie);*/
         return dataset;
     }
 }
